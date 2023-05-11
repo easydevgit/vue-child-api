@@ -1,7 +1,18 @@
 <script setup lang="ts">
+import {onMounted, ref} from "vue";
+import type {Ref} from 'vue'
 import TimeMessage from '@/components/TimeMessage.vue';
+import {DiffTime} from "@/types";
+
 const currentDate = new Date();
 const eventDate = new Date(2024, 1, 1);
+
+const timeMessageRef = ref(null)
+const diffTime: Ref<DiffTime | null> = ref(null)
+
+onMounted(() => {
+  diffTime.value = timeMessageRef.value.getCalcRemainingTime()
+})
 
 </script>
 <template>
@@ -9,9 +20,9 @@ const eventDate = new Date(2024, 1, 1);
     <TimeMessage
         :eventDate="eventDate"
         :currentDate="currentDate"
-        v-slot="{days, hours, minutes}"
+        ref="timeMessageRef"
     >
-      {{ days }} days, {{ hours }} hours, {{ minutes }} minutes
+      {{ diffTime?.days }} days, {{ diffTime?.hours }} hours, {{ diffTime?.minutes }} minutes
     </TimeMessage>
   </div>
 </template>

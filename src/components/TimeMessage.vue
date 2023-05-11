@@ -16,9 +16,11 @@ const getCalcRemainingTime = () => {
   }
 }
 
-const calcRemainingTime = getCalcRemainingTime()
+defineExpose({
+  getCalcRemainingTime
+})
 
 </script>
 <template>
-  <slot v-bind="calcRemainingTime"/>
+  <slot />
 </template>
